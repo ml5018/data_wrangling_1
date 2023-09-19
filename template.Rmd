@@ -3,3 +3,62 @@ title: "Simple document"
 output: github_document
 ---
 
+Let's import the `FAS_litters.csv` csv.
+
+```{r}
+library(tidyverse)
+```
+
+Let's import the `FAS_litters.csv` csv using a relative path.
+
+```{r relative}
+litters_df = 
+  read_csv("data/FAS_litters.csv")
+
+litters_df
+
+litters_df = 
+  janitor::clean_names(litters_df)
+
+litters_df
+```
+
+Import the same data using an absolute path.
+
+```{r absolute}
+litters_df_abs = 
+  read_csv("~/Desktop/data_import_examples/FAS_litters.csv")
+```
+
+Practice
+
+```{r practice}
+pups_rel = read_csv("data/FAS_pups.csv")
+pups_abs = read_csv("~/Desktop/data_import_examples/FAS_pups.csv")
+pups_df = pups_rel
+pups_df = janitor::clean_names(pups_df)
+```
+
+##Look at data
+
+```{r look}
+litters_df
+
+head(litters_df)
+
+tail(litters_df)
+```
+
+You can use `view`.
+
+```{r view, eval = FALSE}
+view(litters_df)
+```
+
+Look at a data summary.
+
+```{r summary}
+str(litters_df)
+
+skimr::skim(litters_df)
+```
