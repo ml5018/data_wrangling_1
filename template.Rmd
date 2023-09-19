@@ -7,6 +7,8 @@ Let's import the `FAS_litters.csv` csv.
 
 ```{r}
 library(tidyverse)
+library(readxl)
+library(haven)
 ```
 
 Let's import the `FAS_litters.csv` csv using a relative path.
@@ -90,4 +92,18 @@ litters_df =
     col_types = 
       cols(Group = col_factor())
     )
+```
+
+## Other file types
+
+Import a xlsx file first.
+
+```{r xlsx}
+mlb_df = read_excel("data/mlb11.xlsx")
+```
+
+Import a SAS file.
+
+```{r SAS}
+pulse_df = read_sas("data/public_pulse_data.sas7bdat")
 ```
