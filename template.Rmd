@@ -107,3 +107,13 @@ Import a SAS file.
 ```{r SAS}
 pulse_df = read_sas("data/public_pulse_data.sas7bdat")
 ```
+
+## Base R ...
+
+```{r base, eval = FALSE}
+litter_df = 
+  read.csv(data/FAS_litters.csv)
+
+litters_df$Group
+```
+
