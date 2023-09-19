@@ -39,7 +39,7 @@ pups_df = pups_rel
 pups_df = janitor::clean_names(pups_df)
 ```
 
-##Look at data
+## Look at data
 
 ```{r look}
 litters_df
@@ -61,4 +61,33 @@ Look at a data summary.
 str(litters_df)
 
 skimr::skim(litters_df)
+```
+
+## Options in read_*
+
+```{r read}
+litters_df = 
+  read_csv(
+    "data/FAS_litters.csv",
+    skip = 10, col_names = FALSE)
+```
+
+Look at NA values.
+
+```{r NA}
+litters_df = 
+  read_csv(
+    "data/FAS_litters.csv",
+    na = c("NA", 19)
+    )
+```
+
+Column tyoes
+```{r column}
+litters_df = 
+  read_csv(
+    "data/FAS_litters.csv",
+    col_types = 
+      cols(Group = col_factor())
+    )
 ```
