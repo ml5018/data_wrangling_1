@@ -1,0 +1,130 @@
+---
+title: "Simple document"
+output: github_document
+---
+
+Let's import the `FAS_litters.csv` csv.
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(haven)
+```
+
+Let's import the `FAS_litters.csv` csv using a relative path.
+
+```{r relative}
+litters_df = 
+  read_csv("data/FAS_litters.csv")
+
+litters_df
+
+litters_df = 
+  janitor::clean_names(litters_df)
+
+litters_df
+```
+
+Import the same data using an absolute path.
+
+```{r absolute}
+litters_df_abs = 
+  read_csv("~/Desktop/data_import_examples/FAS_litters.csv")
+```
+
+Practice
+
+```{r practice}
+pups_rel = read_csv("data/FAS_pups.csv")
+pups_abs = read_csv("~/Desktop/data_import_examples/FAS_pups.csv")
+pups_df = pups_rel
+pups_df = janitor::clean_names(pups_df)
+```
+
+## Look at data
+
+```{r look}
+litters_df
+
+head(litters_df)
+
+tail(litters_df)
+```
+
+You can use `view`.
+
+```{r view, eval = FALSE}
+view(litters_df)
+```
+
+Look at a data summary.
+
+```{r summary}
+str(litters_df)
+
+skimr::skim(litters_df)
+```
+
+## Options in read_*
+
+```{r read}
+litters_df = 
+  read_csv(
+    "data/FAS_litters.csv",
+    skip = 10, col_names = FALSE)
+```
+
+Look at NA values.
+
+```{r NA}
+litters_df = 
+  read_csv(
+    "data/FAS_litters.csv",
+    na = c("NA", 19)
+    )
+```
+
+Column tyoes
+```{r column}
+litters_df = 
+  read_csv(
+    "data/FAS_litters.csv",
+    col_types = 
+      cols(Group = col_factor())
+    )
+```
+
+## Other file types
+
+Import a xlsx file first.
+
+```{r xlsx}
+mlb_df = read_excel("data/mlb11.xlsx")
+```
+
+Import a SAS file.
+
+```{r SAS}
+pulse_df = read_sas("data/public_pulse_data.sas7bdat")
+```
+
+## Base R ...
+
+```{r base, eval = FALSE}
+litter_df = 
+  read.csv(data/FAS_litters.csv)
+
+litters_df$Group
+```
+
+## Export data
+
+```{r export}
+litters_df_cleaned = 
+  read_csv("data/FAS_litters.csv")
+
+litters_df_cleaned = 
+  janitor::clean_names(litters_df_cleaned)
+
+write_csv(litters_df_cleaned, "data/litters_cleaned.csv")
+```
