@@ -109,3 +109,13 @@ mutate(
   group = str_to_lower(group)
   )
 ```
+
+## `arrange`
+
+```{r arrange}
+arrange(litters_df, gd0_weight)
+
+arrange(litters_df, group, gd0_weight)
+
+view(arrange(litters_df, group, gd0_weight))
+```
