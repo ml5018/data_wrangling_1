@@ -1,130 +1,48 @@
 ---
-title: "Simple document"
+title: "Data Manipulation"
 output: github_document
 ---
 
-Let's import the `FAS_litters.csv` csv.
+Setup and load packages.
 
-```{r}
+```{r setup}
 library(tidyverse)
-library(readxl)
-library(haven)
 ```
 
-Let's import the `FAS_litters.csv` csv using a relative path.
+Import the data using a relative path.
 
 ```{r relative}
 litters_df = 
   read_csv("data/FAS_litters.csv")
 
-litters_df
-
 litters_df = 
   janitor::clean_names(litters_df)
 
-litters_df
+pups_df = 
+  read_csv("data/FAS_pups.csv")
+
+pups_df = 
+  janitor::clean_names(pups_df)
 ```
 
-Import the same data using an absolute path.
+`select` is used to select columns.
 
-```{r absolute}
-litters_df_abs = 
-  read_csv("~/Desktop/data_import_examples/FAS_litters.csv")
-```
+```{r select}
+select(litters_df, group, litter_number, gd0_weight)
 
-Practice
+select(litters_df, gd0_weight, group)
 
-```{r practice}
-pups_rel = read_csv("data/FAS_pups.csv")
-pups_abs = read_csv("~/Desktop/data_import_examples/FAS_pups.csv")
-pups_df = pups_rel
-pups_df = janitor::clean_names(pups_df)
-```
+select(litters_df, group, gd0_weight:gd_of_birth)
 
-## Look at data
+select(litters_df, group, starts_with("pups"))
 
-```{r look}
-litters_df
+select(litters_df, -litter_number)
 
-head(litters_df)
+select(litters_df, -starts_with("gd"))
 
-tail(litters_df)
-```
+select(litters_df, group, litter_id = litter_number)
 
-You can use `view`.
+select(litters_df, group, litter_id = litter_number, everything())
 
-```{r view, eval = FALSE}
-view(litters_df)
-```
-
-Look at a data summary.
-
-```{r summary}
-str(litters_df)
-
-skimr::skim(litters_df)
-```
-
-## Options in read_*
-
-```{r read}
-litters_df = 
-  read_csv(
-    "data/FAS_litters.csv",
-    skip = 10, col_names = FALSE)
-```
-
-Look at NA values.
-
-```{r NA}
-litters_df = 
-  read_csv(
-    "data/FAS_litters.csv",
-    na = c("NA", 19)
-    )
-```
-
-Column tyoes
-```{r column}
-litters_df = 
-  read_csv(
-    "data/FAS_litters.csv",
-    col_types = 
-      cols(Group = col_factor())
-    )
-```
-
-## Other file types
-
-Import a xlsx file first.
-
-```{r xlsx}
-mlb_df = read_excel("data/mlb11.xlsx")
-```
-
-Import a SAS file.
-
-```{r SAS}
-pulse_df = read_sas("data/public_pulse_data.sas7bdat")
-```
-
-## Base R ...
-
-```{r base, eval = FALSE}
-litter_df = 
-  read.csv(data/FAS_litters.csv)
-
-litters_df$Group
-```
-
-## Export data
-
-```{r export}
-litters_df_cleaned = 
-  read_csv("data/FAS_litters.csv")
-
-litters_df_cleaned = 
-  janitor::clean_names(litters_df_cleaned)
-
-write_csv(litters_df_cleaned, "data/litters_cleaned.csv")
+select(litters_df, gd0_weight, everything())
 ```
