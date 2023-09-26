@@ -87,7 +87,7 @@ pups_df =
   mutate(sex = case_match(
     sex,
     1 ~ "male",
-    2 ~"female"
+    2 ~ "female"
     )
   )
 
